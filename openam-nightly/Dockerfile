@@ -1,4 +1,4 @@
-FROM tomcat:8-jre8
+FROM registry.access.redhat.com/jboss-webserver-3/webserver30-tomcat7-openshift
 
 MAINTAINER warren.strange@gmail.com
 
@@ -14,5 +14,8 @@ RUN curl http://download.forgerock.org/downloads/openam/openam_link.js | \
    grep -o "http://.*\.war" | xargs curl -o webapps/openam.war
 
 ADD run-openam.sh /tmp/run-openam.sh
+RUN chmod +x /tmp/run-openam.sh
+
+USER 1001
 
 CMD ["/tmp/run-openam.sh"]
